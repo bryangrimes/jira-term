@@ -10,32 +10,33 @@ class PrettyPrinter
         process.stdout.write color(issue.key, sumColor + "+bold")
         # I don't think this could happen, but maybe....
         issue.fields.summary = "None" unless issue.fields.summary?
-        process.stdout.write " - "
+        dash()
         process.stdout.write issue.fields.summary
-        process.stdout.write "\n"
+        newline()
         if detail and issue.fields.description?
             process.stdout.write color("Description:\n", "white+bold")
             process.stdout.write wrap(issue.fields.description)
-            process.stdout.write "\n\n"
+            newline()
+            newline()
 
     # ## Do some fancy formatting on issue types ##
     prettyPrintIssueTypes: (issueType, index)->
         process.stdout.write color(index, "white+bold")
-        process.stdout.write " - "
+        dash()
         process.stdout.write issueType.name
         if issueType.description.length > 0
-            process.stdout.write " - "
+            dash()
             process.stdout.write issueType.description
-        process.stdout.write "\n"
+        newline()
 
     # ## Pretty Print Transition ##
     #
     # Show a transition with the ID in bold followed by the name
     prettyPrintTransition: (transition, index) ->
         process.stdout.write color(index, "white+bold")
-        process.stdout.write " - "
+        pdash()
         process.stdout.write transition.name
-        process.stdout.write "\n"
+        newline()
 
     # ## Pretty Print Projects ##
     #
@@ -45,11 +46,18 @@ class PrettyPrinter
         while key.length < 12
             key = ' ' + key
         process.stdout.write color(key, "white+bold")
-        process.stdout.write " - "
+        dash()
         process.stdout.write project.id
-        process.stdout.write " - "
+        dash()
         process.stdout.write project.name
+        newline()
+
+    # private helpers
+    newline = () ->
         process.stdout.write "\n"
+
+    dash = () ->
+        process.stdout.write " - "
 
 module.exports = {
     PrettyPrinter
