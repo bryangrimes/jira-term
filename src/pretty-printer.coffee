@@ -25,7 +25,7 @@ class PrettyPrinter
         low:"green"
         medium:"yellow"
         high:"magenta"
-        critical:"red"
+        crit:"red"
 
     prettyPrintIssue: (issue, detail)->
         # the color logic seems hacky but works as first pass
@@ -67,7 +67,7 @@ class PrettyPrinter
                 else if issue.fields.priority.name in high_priority
                     process.stdout.write wrap(issue.fields.priority.name).high
                 else if issue.fields.priority.name in bad_statuses
-                    process.stdout.write wrap(issue.fields.priority.name).critical
+                    process.stdout.write wrap(issue.fields.priority.name).crit
                 else
                     process.stdout.write wrap(issue.fields.priority.name).low
                 newline()
