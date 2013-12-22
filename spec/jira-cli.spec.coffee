@@ -1,7 +1,7 @@
 fs = require 'fs'
 path = require 'path'
 
-color = require('ansi-color').set
+colors = require 'colors'
 
 jira = require '../src/jira-cli.coffee'
 
@@ -19,8 +19,9 @@ describe "JiraCli", ->
         @jiraCli = new jira.JiraHelper config
         @cb = jasmine.createSpy 'callback'
         spyOn @jiraCli.pp, 'prettyPrintIssue'
-        spyOn @jiraCli.log, 'error'
-        spyOn @jiraCli.log, 'log'
+        spyOn @jiraCli.pp, 'prettyPrintLog'
+        spyOn @jiraCli.pp, 'prettyPrintSuccess'
+        spyOn @jiraCli.pp, 'prettyPrintError'
         spyOn @jiraCli, 'dieWithFire'
 
     it "Gets the requested issue", ->
@@ -28,24 +29,24 @@ describe "JiraCli", ->
         @jiraCli.getIssue 1, false
         expect(@jiraCli.jira.findIssue)
             .toHaveBeenCalledWith 1, jasmine.any Function
-        
+
         @jiraCli.jira.findIssue.mostRecentCall.args[1] null, "response"
         expect(@jiraCli.pp.prettyPrintIssue)
             .toHaveBeenCalledWith "response", false
 
         @jiraCli.jira.findIssue.mostRecentCall.args[1] "error"
-        expect(@jiraCli.log.error)
+        expect(@jiraCli.pp.prettyPrintError)
             .toHaveBeenCalledWith "Error finding issue: error"
 
     it "Gets the issue types", ->
         spyOn @jiraCli.jira, 'listIssueTypes'
         @jiraCli.getIssueTypes @cb
-        
+
         @jiraCli.jira.listIssueTypes.mostRecentCall.args[0] null, "response"
         expect(@cb).toHaveBeenCalledWith "response"
 
         @jiraCli.jira.listIssueTypes.mostRecentCall.args[0] "error"
-        expect(@jiraCli.log.error)
+        expect(@jiraCli.pp.prettyPrintError)
             .toHaveBeenCalledWith "Error listing issueTypes: error"
         expect(@jiraCli.dieWithFire).toHaveBeenCalled()
 
@@ -56,15 +57,14 @@ describe "JiraCli", ->
         @jiraCli.addIssue 'summary', 'description', 'issueType', 'project'
         expect(@jiraCli.jira.addNewIssue)
             .toHaveBeenCalledWith issue, jasmine.any Function
-        
+
         @jiraCli.jira.addNewIssue.mostRecentCall.args[1] null,
             key: 'response'
-        expect(@jiraCli.log.log)
-            .toHaveBeenCalledWith "Issue response has been
- #{color('created', 'green')}"
+        expect(@jiraCli.pp.prettyPrintSuccess)
+            .toHaveBeenCalledWith "Issue response has been created"
 
         @jiraCli.jira.addNewIssue.mostRecentCall.args[1] "error"
-        expect(@jiraCli.log.error)
+        expect(@jiraCli.pp.prettyPrintError)
             .toHaveBeenCalledWith "Error creating issue: \"error\""
 
     it "Deletes an Issue", ->
@@ -75,12 +75,12 @@ describe "JiraCli", ->
             .toHaveBeenCalledWith 1, jasmine.any Function
 
         @jiraCli.jira.deleteIssue.mostRecentCall.args[1] "error"
-        expect(@jiraCli.log.error)
+        expect(@jiraCli.pp.prettyPrintError)
             .toHaveBeenCalledWith "Error deleting issue: error"
 
         @jiraCli.jira.deleteIssue.mostRecentCall.args[1] null, "success"
-        expect(@jiraCli.log.log)
-            .toHaveBeenCalledWith "Issue 1 was #{color('deleted', 'green')}"
+        expect(@jiraCli.pp.prettyPrintLog)
+            .toHaveBeenCalledWith "Issue 1 was deleted"
 
     it "Adds a worklog", ->
         worklog =
@@ -93,11 +93,11 @@ describe "JiraCli", ->
             .toHaveBeenCalledWith 1, worklog, jasmine.any Function
 
         @jiraCli.jira.addWorklog.mostRecentCall.args[2] null, "response"
-        expect(@jiraCli.log.log)
-            .toHaveBeenCalledWith "Worklog was #{color("added", "green")}"
+        expect(@jiraCli.pp.prettyPrintLog)
+            .toHaveBeenCalledWith "Worklog was added"
 
         @jiraCli.jira.addWorklog.mostRecentCall.args[2] "error"
-        expect(@jiraCli.log.error)
+        expect(@jiraCli.pp.prettyPrintError)
             .toHaveBeenCalledWith "Error adding worklog: error"
 
         expect(@jiraCli.dieWithFire).toHaveBeenCalled()
@@ -119,7 +119,7 @@ describe "JiraCli", ->
         expect(@cb).toHaveBeenCalledWith "transitions"
 
         @jiraCli.jira.listTransitions.mostRecentCall.args[1] "error"
-        expect(@jiraCli.log.error)
+        expect(@jiraCli.pp.prettyPrintError)
             .toHaveBeenCalledWith "Error getting transitions: error"
         expect(@jiraCli.dieWithFire).toHaveBeenCalled()
 
@@ -133,11 +133,11 @@ describe "JiraCli", ->
             .toHaveBeenCalledWith 1, issueUpdate, jasmine.any Function
 
         @jiraCli.jira.transitionIssue.mostRecentCall.args[2] null, "response"
-        expect(@jiraCli.log.log)
-            .toHaveBeenCalledWith "Issue 1 was #{color "transitioned", 'green'}"
+        expect(@jiraCli.pp.prettyPrintLog)
+            .toHaveBeenCalledWith "Issue 1 was transitioned" # #{color "transitioned", 'green'}"
 
         @jiraCli.jira.transitionIssue.mostRecentCall.args[2] "error"
-        expect(@jiraCli.log.error)
+        expect(@jiraCli.pp.prettyPrintError)
             .toHaveBeenCalledWith "Error transitioning issue: error"
 
         expect(@jiraCli.dieWithFire).toHaveBeenCalled()
@@ -157,7 +157,7 @@ describe "JiraCli", ->
         expect(@jiraCli.pp.prettyPrintIssue).toHaveBeenCalledWith 1, true
 
         @jiraCli.jira.searchJira.mostRecentCall.args[2] "error"
-        expect(@jiraCli.log.error)
+        expect(@jiraCli.pp.prettyPrintError)
             .toHaveBeenCalledWith "Error retreiving issues list: error"
 
     it "Gets the user's OPEN issues", ->
@@ -184,7 +184,7 @@ describe "JiraCli", ->
         expect(@cb).toHaveBeenCalledWith "list"
 
         @jiraCli.jira.listProjects.mostRecentCall.args[0] "error"
-        expect(@jiraCli.log.error)
+        expect(@jiraCli.pp.prettyPrintError)
             .toHaveBeenCalledWith "Error listing projects: error"
 
         expect(@jiraCli.dieWithFire).toHaveBeenCalled()

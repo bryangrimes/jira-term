@@ -131,7 +131,7 @@ addItem = (project)->
                 issueTypes.sort dutils.itemSorter
                 for type, index in issueTypes
                     jiraCli.pp.prettyPrintIssueTypes type, index + 1
-                    
+
                 allowedTypes = [1..issueTypes.length]
                 addIssueCallback = (type)->
                     jiraCli.addIssue summary, description,
@@ -160,7 +160,7 @@ if require.main is module
             describe:'Lists all your issues'
         ).options('d',
             alias:'details'
-            describe:'Shows extra details (currently only for list)'
+            describe:'Shows expanded details'
         ).options('p',
             alias:'projects'
             describe:'Lists all your viewable projects'
@@ -175,7 +175,7 @@ if require.main is module
         ).options('h',
             alias:'help'
             describe:'Shows this help message'
-        ).usage('Usage:\n\tjira -f EG-143\n\tjira -r EG-143')
+        ).usage('Usage:\n\tjira -f EG-143\n\tjira -f EG-143 -d\n\tjira -l')
         .boolean('d')
         .string('s')
         .string('f')
@@ -202,25 +202,33 @@ if require.main is module
 
     if args.l
         jiraCli.getMyIssues true, args.d, args.o
+
     else if args.c
         jiraCli.getMyIssues false, args.d, args.o
+
     else if args.s
         return unless paramIsText args.s
         if args.o?
             args.s += args.o
         jiraCli.searchJira args.s, args.d
+
     else if args.p
         listProjects()
+
     else if args.a
         getProject addItem, configFile.project
+
     else if args.f?
         return unless paramIsText args.f
         jiraCli.getIssue args.f, args.d
+
     else if args.w?
         return unless paramIsText args.w
         addWorklog args.w
+
     else if args.t?
         return unless paramIsText args.t
         transitionItem args.t
+
     else
         argv.showHelp()

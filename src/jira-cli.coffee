@@ -1,17 +1,10 @@
 # Because colors are pretty
-color = require('ansi-color').set
+# removed ansi-colors in favor of colors. Cleaner IMO.
+colors = require 'colors'
+
 # [PrettyPrinter Sourc/Doc](pretty-printer.html)
 PrettyPrinter = require('./pretty-printer').PrettyPrinter
 JiraApi = require('jira').JiraApi
-
-
-class Logger
-    error: (text) ->
-        @log text, "red"
-    log: (text, textColor) ->
-        unless textColor?
-            textColor = 'white'
-        console.log color(text, textColor)
 
 # ## JiraHelper ##
 #
@@ -33,7 +26,6 @@ class JiraHelper
         @response = null
         @error = null
         @pp = new PrettyPrinter
-        @log = new Logger
 
     dieWithFire: ->
         process.exit()
@@ -49,7 +41,7 @@ class JiraHelper
                 @pp.prettyPrintIssue response, details
             else
                 @error = error if error?
-                @log.error "Error finding issue: #{error}"
+                @pp.prettyPrintError  "Error finding issue: #{error}"
 
     # ## Get Issue Types ##
     #
@@ -59,7 +51,7 @@ class JiraHelper
             if response?
                 callback response
             else
-                @log.error "Error listing issueTypes: #{error}"
+                @pp.prettyPrintError "Error listing issueTypes: #{error}"
                 @dieWithFire()
 
     createIssueObject: (project, summary, issueType, description) ->
@@ -84,13 +76,14 @@ class JiraHelper
         @jira.addNewIssue newIssue, (error, response) =>
             if response?
                 @response = response if response?
-                @log.log "Issue #{response.key} has " +
-                    "been #{color("created", "green")}"
+                @pp.prettyPrintSuccess "Issue #{response.key} has been created"
             else
                 # The error object is non-standard here from Jira, I'll parse
                 # it better later
                 @error = error if error?
-                @log.error "Error creating issue: #{JSON.stringify(error)}"
+                # waste of a var, only here to pacify the linter
+                @msg = "Error creating issue: #{JSON.stringify(error)}"
+                @pp.prettyPrintError @msg
 
             @dieWithFire()
 
@@ -103,10 +96,10 @@ class JiraHelper
         @jira.deleteIssue issueNum, (error, response) =>
             if response?
                 @response = response
-                @log.log "Issue #{issueNum} was #{color("deleted", "green")}"
+                @pp.prettyPrintLog "Issue #{issueNum} was deleted"
             else
                 @error = error if error?
-                @log.error "Error deleting issue: #{error}"
+                @pp.prettyPrintError "Error deleting issue: #{error}"
 
     # ## Add Worklog Item ##
     #
@@ -117,12 +110,11 @@ class JiraHelper
             timeSpent:timeSpent
         @jira.addWorklog issueId, worklog, (error, response)=>
             if response?
-                @log.log "Worklog was #{color("added", "green")}"
+                @pp.prettyPrintLog "Worklog was added"
             else
                 @error = error if error?
-                @log.error "Error adding worklog: #{error}"
+                @pp.prettyPrintError "Error adding worklog: #{error}"
             @dieWithFire() if exit
-
 
     # ## List Transitions ##
     #
@@ -132,7 +124,7 @@ class JiraHelper
             if transitions?
                 callback transitions
             else
-                @log.error "Error getting transitions: #{error}"
+                @pp.prettyPrintError "Error getting transitions: #{error}"
                 @dieWithFire()
 
     # ## Transition Issue ##
@@ -150,11 +142,11 @@ class JiraHelper
         @jira.transitionIssue issueNum, issueUpdate, (error, response) =>
             if response?
                 @response = response
-                @log.log "Issue #{issueNum} " +
-                    "was #{color("transitioned", "green")}"
+                @pp.prettyPrintLog "Issue #{issueNum} " +
+                    "was transitioned" # #{color("transitioned", "green")}"
             else
                 @error = error if error?
-                @log.error "Error transitioning issue: #{error}"
+                @pp.prettyPrintError "Error transitioning issue: #{error}"
 
             @dieWithFire()
 
@@ -175,7 +167,7 @@ class JiraHelper
                     @pp.prettyPrintIssue issue, details
             else
                 @error = error if error?
-                @log.error "Error retreiving issues list: #{error}"
+                @pp.prettyPrintError "Error retreiving issues list: #{error}"
 
     # ## Get My Issues ##
     #
@@ -190,7 +182,6 @@ class JiraHelper
         if open
             jql += ' AND resolution = unresolved'
         jql += projects if projects?
-
         @searchJira jql, details
         return
 
@@ -202,7 +193,7 @@ class JiraHelper
             if projectList?
                 callback projectList
             else
-                @log.error "Error listing projects: #{error}"
+                @pp.prettyPrintError "Error listing projects: #{error}"
                 @dieWithFire()
 
 

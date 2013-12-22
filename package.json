@@ -1,12 +1,9 @@
 {
   "name": "jira-cli",
   "description": "Command line interface for Jira",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "homepage": "https://tebriel.github.com/jira-cli",
-  "author": {
-    "name": "Chris Moultrie",
-    "email": "tebriel@gmail.com"
-  },
+  "author": "Chris Moultrie <tebriel@gmail.com>",
   "bin": {
     "jira": "./lib/jira.js"
   },
@@ -50,5 +47,9 @@
     "grunt-jasmine-node": "~0.1.0",
     "grunt-docco": "~0.2.0",
     "grunt-contrib-concat": "~0.3.0"
-  }
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "license": "BSD-2-Clause"
 }
