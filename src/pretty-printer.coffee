@@ -93,20 +93,22 @@ class PrettyPrinter
 
     # ## Do some fancy formatting on issue types ##
     prettyPrintIssueTypes: (issueType, index)->
-        process.stdout.write index.log.bold
-        dash()
-        process.stdout.write issueType.name
-        if issueType.description.length > 0
+        # ignore subtasks for now that's a whole different thing with linking
+        if issueType.subtask == false
+            process.stdout.write issueType.id.log.bold
             dash()
-            process.stdout.write issueType.description
-        newline()
+            process.stdout.write issueType.name
+            if issueType.description.length > 0
+                dash()
+                process.stdout.write issueType.description
+            newline()
 
     # ## Pretty Print Transition ##
     #
     # Show a transition with the ID in bold followed by the name
     prettyPrintTransition: (transition, index) ->
         process.stdout.write index.log.bold
-        pdash()
+        dash()
         process.stdout.write transition.name
         newline()
 

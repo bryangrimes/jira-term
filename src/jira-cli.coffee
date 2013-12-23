@@ -6,6 +6,8 @@ colors = require 'colors'
 PrettyPrinter = require('./pretty-printer').PrettyPrinter
 JiraApi = require('jira').JiraApi
 
+dutils = require('./data-utils')
+
 # ## JiraHelper ##
 #
 # This does the fancy talking to JiraApi for us. It formats the objects the way
@@ -54,13 +56,17 @@ class JiraHelper
                 @pp.prettyPrintError "Error listing issueTypes: #{error}"
                 @dieWithFire()
 
-    createIssueObject: (project, summary, issueType, description) ->
+    createIssueObject: (project, summary, issueType, description, criteria) ->
+        # TO DO:
+        # the last arg should be an array of keys and values
+        # that are non-standard
         fields:
-            project: { id:project }
+            project: { key :project }
             summary: summary
             issuetype: { id:issueType }
             assignee: { name:@config.user }
             description: description
+            customfield_10503: criteria
 
     # ## Add Issue ##
     #
@@ -70,8 +76,9 @@ class JiraHelper
     # *  issue type: Id of the type (types are like bug, feature)
     # *  project: this is the id of the project that you're assigning the issue
     # to
-    addIssue: (summary, description, issueType, project) ->
-        newIssue = @createIssueObject project, summary, issueType, description
+    addIssue: (summary, description, issueType, project, criteria) ->
+        newIssue = @createIssueObject project, summary, issueType,
+                    description, criteria
 
         @jira.addNewIssue newIssue, (error, response) =>
             if response?
@@ -81,7 +88,6 @@ class JiraHelper
                 # The error object is non-standard here from Jira, I'll parse
                 # it better later
                 @error = error if error?
-                # waste of a var, only here to pacify the linter
                 @msg = "Error creating issue: #{JSON.stringify(error)}"
                 @pp.prettyPrintError @msg
 

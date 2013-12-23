@@ -127,16 +127,20 @@ addItem = (project)->
     # Gather the summary, description, an type
     dutils.ask "Summary", /.+/, (summary)->
         dutils.ask "Description", /.+/, (description)->
-            jiraCli.getIssueTypes (issueTypes)->
-                issueTypes.sort dutils.itemSorter
-                for type, index in issueTypes
-                    jiraCli.pp.prettyPrintIssueTypes type, index + 1
+            dutils.ask "QA Aceptance Criteria", /.+/, (criteria)->
+                jiraCli.getIssueTypes (issueTypes)->
+                    issueTypes.sort dutils.itemSorter
+                    for type, index in issueTypes
+                        jiraCli.pp.prettyPrintIssueTypes type, index + 1
 
-                allowedTypes = [1..issueTypes.length]
-                addIssueCallback = (type)->
-                    jiraCli.addIssue summary, description,
-                        issueTypes[type - 1].id, project
-                dutils.ask "Type ", allowedTypes, addIssueCallback, allowedTypes
+                    allowedTypes = [1..issueTypes.length]
+
+                    addIssueCallback = (type)->
+                        jiraCli.addIssue summary, description,
+                            issueTypes[type - 1].id, project, criteria
+
+                    dutils.ask "Type ", allowedTypes,
+                                    addIssueCallback, allowedTypes
 
 # ## Main entry point ##
 #
