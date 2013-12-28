@@ -107,7 +107,7 @@ class PrettyPrinter
     #
     # Show a transition with the ID in bold followed by the name
     prettyPrintTransition: (transition, index) ->
-        process.stdout.write index.log.bold
+        process.stdout.write transition.id
         dash()
         process.stdout.write transition.name
         newline()
@@ -116,15 +116,16 @@ class PrettyPrinter
     #
     # Prints the project list in a non-awful format
     prettyPrintProject: (project) ->
-        key = project.key
-        while key.length < 12
-            key = ' ' + key
-        process.stdout.write index.log.bold
-        dash()
-        process.stdout.write project.id
-        dash()
-        process.stdout.write project.name
-        newline()
+        # TO DO
+        # this isn't right....MMC is caught.
+        if !project.name.match(/r?z\ ?/)
+            key = project.key
+            while key.length < 12
+                key = ' ' + key
+            process.stdout.write project.key
+            dash()
+            process.stdout.write project.name
+            newline()
 
     # these could all be refactored to be on methog with two args.
 
