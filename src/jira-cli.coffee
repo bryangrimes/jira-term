@@ -102,7 +102,7 @@ class JiraHelper
         @jira.deleteIssue issueNum, (error, response) =>
             if response?
                 @response = response
-                @pp.prettyPrintLog "Issue #{issueNum} was deleted"
+                @pp.prettyPrintSucess "Issue #{issueNum} was deleted"
             else
                 @error = error if error?
                 @pp.prettyPrintError "Error deleting issue: #{error}"
@@ -116,7 +116,7 @@ class JiraHelper
             timeSpent:timeSpent
         @jira.addWorklog issueId, worklog, (error, response)=>
             if response?
-                @pp.prettyPrintLog "Worklog was added"
+                @pp.prettyPrintSuccess "Worklog was added"
             else
                 @error = error if error?
                 @pp.prettyPrintError "Error adding worklog: #{error}"
