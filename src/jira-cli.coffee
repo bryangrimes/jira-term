@@ -102,7 +102,7 @@ class JiraHelper
         @jira.deleteIssue issueNum, (error, response) =>
             if response?
                 @response = response
-                @pp.prettyPrintSucess "Issue #{issueNum} was deleted"
+                @pp.prettyPrintSuccess "Issue #{issueNum} was deleted"
             else
                 @error = error if error?
                 @pp.prettyPrintError "Error deleting issue: #{error}"

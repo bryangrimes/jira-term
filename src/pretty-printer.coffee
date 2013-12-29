@@ -7,6 +7,10 @@ moment = require('moment')
 # removed ansi-colors in favor of colors. Cleaner IMO.
 colors = require('colors')
 
+# colors are great, but images are better
+pictureTube = require('picture-tube')
+fs = require('fs')
+
 class PrettyPrinter
     # hardcoded (for now) statuses that should be colored
     bad_statuses = ["QA Failed", "Backlog"]
@@ -71,8 +75,13 @@ class PrettyPrinter
             newline()
 
             process.stdout.write "Priority:".log.bold
+            tube = pictureTube
+            tube.opts.cols=3
+            tube.pipe(process.stdout)
+
             if issue.fields.priority.name in med_priority
                 process.stdout.write pad(issue.fields.priority.name).medium
+                fs.createReadStream(issue.fields.priority.iconUrl).pipe(tube)
             else if issue.fields.priority.name in high_priority
                 process.stdout.write pad(issue.fields.priority.name).high
             else if issue.fields.priority.name in bad_statuses
@@ -172,7 +181,7 @@ class PrettyPrinter
     seperator = () ->
         txt=""
         for i in [1..80]
-          txt += "*"
+            txt += "*"
         process.stdout.write txt
 
 module.exports = {

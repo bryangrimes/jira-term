@@ -2,22 +2,22 @@
   "name": "jira-cli",
   "description": "Command line interface for Jira",
   "version": "0.5.1",
-  "homepage": "https://tebriel.github.com/jira-cli",
+  "homepage": "https://bryangrimes.github.com/jira-cli",
   "author": "Chris Moultrie <tebriel@gmail.com>",
   "bin": {
     "jira": "./lib/jira.js"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/tebriel/jira-cli.git"
+    "url": "git://github.com/bryangrimes/jira-cli.git"
   },
   "bugs": {
-    "url": "https://github.com/tebriel/jira-cli/issues"
+    "url": "https://github.com/bryangrimes/jira-cli/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/tebriel/jira-cli/blob/master/LICENSE-MIT"
+      "url": "https://github.com/bryangrimes/jira-cli/blob/master/LICENSE-MIT"
     }
   ],
   "main": "lib/jira-cli",
@@ -28,10 +28,11 @@
     "test": "node -e 'require(\"grunt\").cli()'"
   },
   "dependencies": {
-    "jira": ">= 0.0.5",
-    "optimist": "~0.3.5",
-    "ansi-color": "~0.2.1",
-    "wordwrap": "0.0.2"
+    "jira": ">= 0.8.2",
+    "optimist": "0.6.0",
+    "wordwrap": "0.0.2",
+    "colors": "0.6.2",
+    "moment": "2.5.0"
   },
   "keywords": [
     "jira",

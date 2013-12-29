@@ -79,7 +79,7 @@ describe "JiraCli", ->
             .toHaveBeenCalledWith "Error deleting issue: error"
 
         @jiraCli.jira.deleteIssue.mostRecentCall.args[1] null, "success"
-        expect(@jiraCli.pp.prettyPrintLog)
+        expect(@jiraCli.pp.prettyPrintSuccess)
             .toHaveBeenCalledWith "Issue 1 was deleted"
 
     it "Adds a worklog", ->
@@ -93,7 +93,7 @@ describe "JiraCli", ->
             .toHaveBeenCalledWith 1, worklog, jasmine.any Function
 
         @jiraCli.jira.addWorklog.mostRecentCall.args[2] null, "response"
-        expect(@jiraCli.pp.prettyPrintLog)
+        expect(@jiraCli.pp.prettyPrintSuccess)
             .toHaveBeenCalledWith "Worklog was added"
 
         @jiraCli.jira.addWorklog.mostRecentCall.args[2] "error"
