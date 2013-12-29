@@ -31,6 +31,12 @@ module.exports = (grunt) ->
                 src: ['lib/jira.js']
                 dest: 'lib/jira.js'
 
+        watch:
+            scripts:
+                files: ['src/*.coffee']
+                tasks: ['coffeelint', 'coffee', 'jasmine_node']
+                options:
+                    event: ['added', 'deleted']
 
     grunt.loadNpmTasks 'grunt-jasmine-node'
     grunt.loadNpmTasks 'grunt-contrib-coffee'
@@ -38,6 +44,7 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-bump'
     grunt.loadNpmTasks 'grunt-coffeelint'
     grunt.loadNpmTasks 'grunt-contrib-concat'
+    grunt.loadNpmTasks 'grunt-contrib-watch'
 
     grunt.registerTask 'default',
         ['coffeelint', 'coffee', 'jasmine_node', 'concat']
@@ -47,3 +54,11 @@ module.exports = (grunt) ->
         ['coffeelint', 'coffee', 'jasmine_node', 'docco', 'concat', 'bump']
     grunt.registerTask 'force',
         ['coffeelint', 'coffee', 'jasmine_node', 'docco', 'concat']
+
+
+
+
+
+
+
+

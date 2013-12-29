@@ -1,4 +1,5 @@
 wrap = require('wordwrap')(8, 80)
+pad = require('wordwrap')(2, 100)
 
 # use moment for date magic
 moment = require('moment')
@@ -29,7 +30,13 @@ class PrettyPrinter
 
     prettyPrintIssue: (issue, detail)->
         # the color logic seems hacky but works as first pass
-        process.stdout.write issue.key.log.bold
+        newline()
+        seperator().yellow
+        newline()
+
+        process.stdout.write "Issue:".log.bold
+        #newline()
+        process.stdout.write pad(issue.key).log.bold
         issue.fields.summary = "None" unless issue.fields.summary?
         dash()
         process.stdout.write issue.fields.summary.log
@@ -37,57 +44,62 @@ class PrettyPrinter
 
         if detail
             if issue.fields.description?
-                process.stdout.write "Description:\n".log.bold
+                process.stdout.write "Description:".log.bold
+                newline()
                 txt = issue.fields.description.slice(0,300)
                 process.stdout.write wrap(txt).log
-                newline()
-                process.stdout.write wrap("...")
+
+                if txt.length > 300
+                    newline()
+                    process.stdout.write pad("...")
+
                 newline()
 
             if issue.fields.issuetype?
-                process.stdout.write "Type:\n".log.bold
+                process.stdout.write "Type:".log.bold
                 if issue.fields.issuetype.name in bad_types
-                    process.stdout.write wrap(issue.fields.issuetype.name).high
+                    process.stdout.write pad(issue.fields.issuetype.name).high
                 else
-                    process.stdout.write wrap(issue.fields.issuetype.name).low
+                    process.stdout.write pad(issue.fields.issuetype.name).low
                 newline()
 
-            if issue.fields.status?
-                process.stdout.write "Status:\n".log.bold
-                if issue.fields.status.name in bad_statuses
-                    process.stdout.write wrap(issue.fields.status.name).red
-                else
-                    process.stdout.write wrap(issue.fields.status.name).green
-                newline()
+            process.stdout.write "Status:".log.bold
+            if issue.fields.status.name in bad_statuses
+                process.stdout.write pad(issue.fields.status.name).red
+            else
+                process.stdout.write pad(issue.fields.status.name).green
+            newline()
 
-            if issue.fields.priotity?
-                process.stdout.write "Priority:\n".log.bold
-                if issue.fields.priority.name in med_priority
-                    process.stdout.write wrap(issue.fields.priority.name).medium
-                else if issue.fields.priority.name in high_priority
-                    process.stdout.write wrap(issue.fields.priority.name).high
-                else if issue.fields.priority.name in bad_statuses
-                    process.stdout.write wrap(issue.fields.priority.name).crit
-                else
-                    process.stdout.write wrap(issue.fields.priority.name).low
-                newline()
+            process.stdout.write "Priority:".log.bold
+            if issue.fields.priority.name in med_priority
+                process.stdout.write pad(issue.fields.priority.name).medium
+            else if issue.fields.priority.name in high_priority
+                process.stdout.write pad(issue.fields.priority.name).high
+            else if issue.fields.priority.name in bad_statuses
+                process.stdout.write pad(issue.fields.priority.name).crit
+            else
+                process.stdout.write pad(issue.fields.priority.name).low
+            newline()
 
-            if issue.fields.reporter?
-                process.stdout.write "Reporter:\n".log.bold
-                process.stdout.write wrap(issue.fields.reporter.name).log
-                newline()
+            process.stdout.write "Assigned To:".log.bold
+            process.stdout.write pad(issue.fields.assignee.name).log
+            newline()
 
-            if issue.fields.created?
-                process.stdout.write "Created On:\n".log.bold
-                # this isn't localized I know.
-                dt = moment(issue.fields.created).format("MM/d/YYYY h:mm:ss a")
-                process.stdout.write wrap(dt)
-                newline()
+            process.stdout.write "Reporter:".log.bold
+            process.stdout.write pad(issue.fields.reporter.name).log
+            newline()
 
-            if issue.fields.assignee?
-                process.stdout.write "Assigned To:\n".log.bold
-                process.stdout.write wrap(issue.fields.assignee.name).log
-                newline()
+            process.stdout.write "Created On:".log.bold
+            # this isn't localized I know.
+            dt = moment(issue.fields.created).format("MM/d/YYYY h:mm:ss a")
+            process.stdout.write pad(dt)
+            newline()
+
+            process.stdout.write "Updated On:".log.bold
+            # this isn't localized I know.
+            dt = moment(issue.fields.updated).format("MM/d/YYYY h:mm:ss a")
+            process.stdout.write pad(dt)
+            newline()
 
             newline()
 
@@ -156,6 +168,12 @@ class PrettyPrinter
 
     dash = () ->
         process.stdout.write " - "
+
+    seperator = () ->
+        txt="*"
+        for i in [1..80]
+          txt += "*"
+        process.stdout.write txt
 
 module.exports = {
     PrettyPrinter
