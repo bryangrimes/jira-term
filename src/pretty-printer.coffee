@@ -91,13 +91,13 @@ class PrettyPrinter
 
             process.stdout.write "Created On:".log.bold
             # this isn't localized I know.
-            dt = moment(issue.fields.created).format("MM/d/YYYY h:mm:ss a")
+            dt = moment(issue.fields.created).format("MM/D/YYYY h:mm:ss a")
             process.stdout.write pad(dt)
             newline()
 
             process.stdout.write "Updated On:".log.bold
             # this isn't localized I know.
-            dt = moment(issue.fields.updated).format("MM/d/YYYY h:mm:ss a")
+            dt = moment(issue.fields.updated).format("MM/D/YYYY h:mm:ss a")
             process.stdout.write pad(dt)
             newline()
 
