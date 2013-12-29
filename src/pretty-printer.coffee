@@ -170,7 +170,7 @@ class PrettyPrinter
         process.stdout.write " - "
 
     seperator = () ->
-        txt="*"
+        txt=""
         for i in [1..80]
           txt += "*"
         process.stdout.write txt
