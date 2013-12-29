@@ -1,6 +1,6 @@
 # jira-cli
 
-[![Build Status](https://travis-ci.org/tebriel/jira-cli.png?branch=master)](https://travis-ci.org/tebriel/jira-cli)
+[![Build Status](https://travis-ci.org/bryangrimes/jira-cli.png?branch=master)](https://travis-ci.org/bryangrimes/jira-cli)
 
 This is a command line client for jira, because no one likes their terrible
 interface.
