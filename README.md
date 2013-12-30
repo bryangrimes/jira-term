@@ -1,18 +1,18 @@
-e# jira-term
+## jira-term
 
 [![Build Status](https://travis-ci.org/bryangrimes/jira-term.png?branch=master)](https://travis-ci.org/bryangrimes/jira-term)
 
-This is a fork of the [jira-cli](http://tebriel.github.com/jira-cli/) project which isn't active at the moment, so I built on top of it.  Also, I forked and used the [jira-cli](http://tebriel.github.com/jira-cli/) project because my current day job has very tightly controlled custom workflows where various fields can be required based on workflow actions, and I wanted to keep that separate.
+This is a fork of the [jira-cli](http://tebriel.github.com/jira-cli/) project which isn't active at the moment, so I built on top of it.  Also, I forked and used the [jira-cli](http://tebriel.github.com/jira-cli/) project because my current day job has very tightly controlled custom workflows where various fields can be required based on workflow actions, and I wanted to keep that seperate.
 
-This is also a project for me to get back into CoffeeScript and to better understand using Travis, Github pages, self documenting code, and other tools.  Make no mistake, I use this in my daily work, but until version 0.3.0 or so is hit, this might be buggy in edge cases (e.g. custom fields required on create).
+This is also a project for me to get back into CoffeeScript and to better understand using Travis, GitHub pages, self documenting code, and other tools.  Make no mistake, I use this in my daily work, but until version 0.3.0 or so is hit, this might be buggy in edge cases (e.g. custom fields required on create, and so on).
 
 ## Getting Started
 
-*  This is mainly a fork for my day job's Jira work...so for now if you have a problem adding let me know
+*  This is mainly a fork I created for my day job's Jira work...so for now if you have a problem adding a new item, or selecting a status/transition let me know
 *   Install the module with: `npm install -g jira-term`
 *  Run it with `jira-term`
 
-## What does it do?
+## What Does It Do?
 
 *  Lists your issues by default
 *  List all projects you have access to
@@ -25,8 +25,16 @@ This is also a project for me to get back into CoffeeScript and to better unders
 *  Returns results in a simple or detailed output
 *  Colors things you care about which is customizable
 
+
+## Known Issues
+
+* Transitions are being listed with the Jira ID and not 1,2,3,etc
+* Adding a new issue want's "QA Acceptance Criteria".  That's from my day job, and will be extracted and removed
+* Mixing args is awkward, need to throw errors if you mix when not needed/expected
+ 
 ## TODO
 
+*  Fix bugs - Meh.
 *  Handle custom fields on create/transition to keep everyone working smoothly
 *  Better/refactored testing FOR SURE
 *  Fully customizable colors and options
@@ -35,7 +43,7 @@ This is also a project for me to get back into CoffeeScript and to better unders
 
 ## Documentation ##
 
-[GitHub Documentation](http://bryangrimes.github.com/jira-term/)
+[GitHub Documentation](http://bryangrimes.github.io/jira-term/) - COMING SOON
 
 ## Examples ##
 
@@ -58,7 +66,7 @@ If your ssl certs are also self-signed add: `"strictSSL": false` to your .jiracl
 
 ## Testing ##
 
-Using jasmine-node with grunt currently and need a ton of work.  Spies are working, but brute force unit tests are needed for coverage.
+Using jasmine-node with grunt currently and needs a ton of work.  Spies are working, but brute force unit tests are needed for coverage and sanity.
 
 
 ## Release History
@@ -66,6 +74,9 @@ Using jasmine-node with grunt currently and need a ton of work.  Spies are worki
 *  _0.0.1 Initial Release_
 *  _0.0.2 NPM Updates_
 *  _0.1.0 Stable Release_
+*  _0.1.1 meta update_
+*  _0.1.2 meta update_
+*  _0.1.3 I can't spell)_
 
 ## License
 
