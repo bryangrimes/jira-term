@@ -36,9 +36,8 @@
   },
   "keywords": [
     "jira",
-    "awesomeness",
-    "win",
-    "whisky"
+    "terminal",
+    "GSD"
   ],
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -53,5 +52,5 @@
   "directories": {
     "doc": "docs"
   },
-  "license": "BSD-2-Clause"
+  "license": "MIT"
 }
