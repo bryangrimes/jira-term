@@ -1,8 +1,8 @@
-# jira-term
+e# jira-term
 
 [![Build Status](https://travis-ci.org/bryangrimes/jira-term.png?branch=master)](https://travis-ci.org/bryangrimes/jira-term)
 
-This is a fork of the [jira-cli](http://tebriel.github.com/jira-cli/) project which isn't active at the moment, so I built on top of it.  Also, I forked and used the jira-cli](http://tebriel.github.com/jira-cli/) project because my current day job has very tightly controlled custom workflows where various fields can be required based on workflow actions, and I wanted to keep that separate.
+This is a fork of the [jira-cli](http://tebriel.github.com/jira-cli/) project which isn't active at the moment, so I built on top of it.  Also, I forked and used the [jira-cli](http://tebriel.github.com/jira-cli/) project because my current day job has very tightly controlled custom workflows where various fields can be required based on workflow actions, and I wanted to keep that separate.
 
 This is also a project for me to get back into CoffeeScript and to better understand using Travis, Github pages, self documenting code, and other tools.  Make no mistake, I use this in my daily work, but until version 0.3.0 or so is hit, this might be buggy in edge cases (e.g. custom fields required on create).
 
