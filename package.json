@@ -1,23 +1,23 @@
 {
-  "name": "jira-cli",
-  "description": "Command line interface for Jira",
+  "name": "jira-term",
+  "description": "CLI for Jira based on jira-cli",
   "version": "0.5.1",
-  "homepage": "https://bryangrimes.github.com/jira-cli",
-  "author": "Chris Moultrie <tebriel@gmail.com>",
+  "homepage": "https://bryangrimes.github.com/jira-term",
+  "author": "Bryan Grimes <bryan@bryangrim.es>",
   "bin": {
     "jira": "./lib/jira.js"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/bryangrimes/jira-cli.git"
+    "url": "git://github.com/bryangrimes/jira-term.git"
   },
   "bugs": {
-    "url": "https://github.com/bryangrimes/jira-cli/issues"
+    "url": "https://github.com/bryangrimes/jira-term/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/bryangrimes/jira-cli/blob/master/LICENSE-MIT"
+      "url": "https://github.com/bryangrimes/jira-term/blob/master/LICENSE-MIT"
     }
   ],
   "main": "lib/jira-cli",

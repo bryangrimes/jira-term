@@ -1,86 +1,66 @@
-# jira-cli
+# jira-term
 
-[![Build Status](https://travis-ci.org/bryangrimes/jira-cli.png?branch=master)](https://travis-ci.org/bryangrimes/jira-cli)
+[![Build Status](https://travis-ci.org/bryangrimes/jira-term.png?branch=master)](https://travis-ci.org/bryangrimes/jira-term)
 
-This is a command line client for jira, because no one likes their terrible
-interface.
+This is a fork of the [jira-cli](http://tebriel.github.com/jira-cli/) project which isn't actively maintained anymore so I built on top of it for now.    
 
 ## Getting Started
 
-*  Install the module with: `npm install -g jira-cli`
-*  Run it with `jira`
+*  This is mainly a fork for my day job's Jira work, so there are some customizations to be made before this is availble via npm.
+*   That said it'll be available soon via NPM
 
 ## What does it do?
 
-*  Lists all a user's issues
-*  List all a user's projects
+*  Lists your issues by default
+*  List all projects you have access to
 *  Finds an issue by Key (AB-123) or Id (123456)
 *  Opens an issue 
 *  Allows user to add a new ticket to different projects
 *  Transitions an issue (shows all available transition states)
 *  Adds a worklog to an issue
 *  Allow searching to be limited by project id
+*  Returns results in a simple or detailed output
+*  Colors things you care about which is customizable
 
 ## TODO
 
-*  PROFIT?
-*  MOAR testing
+*  Better/refactored testing FOR SURE
+*  Fully customizable colors and options
+*  Ability to open your browser on a selected project or issue
+*  Support for arrays of items to transition, log work, etc
 
 ## Documentation ##
 
-[GitHub Documentation](http://tebriel.github.com/jira-cli/)
+[GitHub Documentation](http://bryangrimes.github.com/jira-term/)
 
 ## Examples ##
 
-`jira -l`
+`jira-term -l` to list your assigned items
 
-`jira -f AB-123`
+`jira-term -f AB-123` to find an item
+
+`jira-term -f AB-123 -d` to find an item and show details
+
+`jira-term -p` to list al projects
+
+`jira-term -t AB-123` to transition the item
 
 ## Notes ##
+
+This is built off of the great [node-jira](https://github.com/steves/node-jira) API so please refer to their [documentation](https://github.com/steves/node-jira/blob/master/README.md) on the requirements needed for connectivity and security to your Jira instance.
 
 If you use `https:` for jira, add `"protocol": "https:"` to your .jiraclirc.json
 If your ssl certs are also self-signed add: `"strictSSL": false` to your .jiraclirc.json
 
 ## Testing ##
 
-Using jasmine-node with grunt currently. Tests are a bit silly, but they helped
-me learn jasmine spies. So that's good.
-
-## Contributing
-
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/gruntjs/grunt).
+Using jasmine-node with grunt currently and need a ton of work.  Spies are working, but brute force unit tests are needed for coverage.
 
 
 ## Release History
 
-*  _0.5.0 Changing list (`-l`) to to use the query `resolution = unresolved` (Thanks
-   to [zowens](https://github.com/zowens))_
-*  _0.4.1 Accidentally quitting before callback was finished_
-*  _0.4.0 Now able to ignore self-signed SSL Certs and specify protocol_
-*  _0.3.1 Fixed some bugs_
-*  _0.3.0 Updated version of jira_
-*  _0.2.9 Fixed an issue where special characters were in the username_
-*  _0.2.8 Fixed issue with create that would prevent you from creating_
-*  _0.2.7 Fixed typo that prevented -w from working_
-*  _0.2.6 Now takes -o to limit to specific project(s)_
-*  _0.2.5 Now normalizing event types and item types_
-*  _0.2.4 I did something here, don't remember_
-*  _0.2.3 Fixed an issue where invalid input caused an exception_
-*  _0.2.2 Added wordrap to -d so that the text is easier to grok_
-*  _0.2.1 Added -d flag to show details for list/find_
-*  _0.2.0 Refactored organization. Creates config file if not present_
-*  _0.1.9 Defaults for project in config, lists others if desired_
-*  _0.1.8 Now allows entry of worklog when transitioning items, or by itself_
-*  _0.1.7 Now requiring my custom npm module for node-jira-devel_
-*  _0.1.6 Transitioning now shows all available options_
-*  _0.1.5 Listing Id for project_
-*  _0.1.4 Listing Types in Create_
-*  _0.1.3 Listing Projects_
-*  _0.1.2 Moar Minor Doc Changes_
-*  _0.1.1 Minor Doc Changes_
-*  _0.1.0 Initial Release_
+*  _0.0.1 Initial Release_
 
 ## License
 
-Copyright (c) 2012 Chris Moultrie  
-Licensed under the MIT license.
+Licensed under the MIT license.  I forked, you fork, whatever let's all have some fun and get shit done. 
