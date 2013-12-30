@@ -7,17 +7,10 @@ moment = require('moment')
 # removed ansi-colors in favor of colors. Cleaner IMO.
 colors = require('colors')
 
+options = require('./format-options')
+
 class PrettyPrinter
     # hardcoded (for now) statuses that should be colored
-    bad_statuses = ["QA Failed"]
-
-    bad_types = ["Production Issue", "Bug", "Defect"]
-
-    low_priority =["Low"]
-    med_priority =["Medium"]
-    high_priority =["High"]
-    critical_priority =["Blocker", "Critical"]
-
     colors.setTheme
         success: "green"
         error: "red"
@@ -37,14 +30,14 @@ class PrettyPrinter
         if detail
             if issue.fields.issuetype?
                 process.stdout.write "Type:".log.bold
-                if issue.fields.issuetype.name in bad_types
+                if issue.fields.issuetype.name in options.bad_types
                     process.stdout.write pad(issue.fields.issuetype.name).high
                 else
                     process.stdout.write pad(issue.fields.issuetype.name).low
             newline()
 
             process.stdout.write "Status:".log.bold
-            if issue.fields.status.name in bad_statuses
+            if issue.fields.status.name in options.bad_statuses
                 process.stdout.write pad(issue.fields.status.name).red
             else
                 process.stdout.write pad(issue.fields.status.name).green
@@ -85,25 +78,25 @@ class PrettyPrinter
 
             if issue.fields.issuetype?
                 process.stdout.write "Type:".log.bold
-                if issue.fields.issuetype.name in bad_types
+                if issue.fields.issuetype.name in options.bad_types
                     process.stdout.write pad(issue.fields.issuetype.name).high
                 else
                     process.stdout.write pad(issue.fields.issuetype.name).low
                 newline()
 
             process.stdout.write "Status:".log.bold
-            if issue.fields.status.name in bad_statuses
+            if issue.fields.status.name in options.bad_statuses
                 process.stdout.write pad(issue.fields.status.name).red
             else
                 process.stdout.write pad(issue.fields.status.name).green
             newline()
 
             process.stdout.write "Priority:".log.bold
-            if issue.fields.priority.name in med_priority
+            if issue.fields.priority.name in options.med_priority
                 process.stdout.write pad(issue.fields.priority.name).medium
-            else if issue.fields.priority.name in high_priority
+            else if issue.fields.priority.name in options.high_priority
                 process.stdout.write pad(issue.fields.priority.name).high
-            else if issue.fields.priority.name in bad_statuses
+            else if issue.fields.priority.name in options.critical_priority
                 process.stdout.write pad(issue.fields.priority.name).crit
             else
                 process.stdout.write pad(issue.fields.priority.name).low
