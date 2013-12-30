@@ -22,6 +22,7 @@ describe "JiraCli", ->
         spyOn @jiraCli.pp, 'prettyPrintLog'
         spyOn @jiraCli.pp, 'prettyPrintSuccess'
         spyOn @jiraCli.pp, 'prettyPrintError'
+        spyOn @jiraCli.pp, 'prettyPrintList'
         spyOn @jiraCli, 'dieWithFire'
 
     it "Gets the requested issue", ->
@@ -154,7 +155,7 @@ describe "JiraCli", ->
             .toEqual fields
 
         @jiraCli.jira.searchJira.mostRecentCall.args[2] null, issues: [1]
-        expect(@jiraCli.pp.prettyPrintIssue).toHaveBeenCalledWith 1, true
+        expect(@jiraCli.pp.prettyPrintList).toHaveBeenCalledWith 1, true
 
         @jiraCli.jira.searchJira.mostRecentCall.args[2] "error"
         expect(@jiraCli.pp.prettyPrintError)

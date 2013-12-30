@@ -178,7 +178,7 @@ class JiraHelper
                         when searchTypes.Issue
                             @pp.prettyPrintIssue issue, details
                         else # less is better as default
-                            @pp.prettyPrintIssue issue, details
+                            @pp.prettyPrintList issue, details
             else
                 @error = error if error?
                 @pp.prettyPrintError "Error retreiving issues list: #{error}"

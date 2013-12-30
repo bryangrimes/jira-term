@@ -9,10 +9,9 @@ colors = require('colors')
 
 class PrettyPrinter
     # hardcoded (for now) statuses that should be colored
-    bad_statuses = ["QA Failed", "Backlog"]
-    good_statuses = ["QA Passed", "Closed", "Task Complete"]
+    bad_statuses = ["QA Failed"]
 
-    bad_types = ["Production Issue", "Bug"]
+    bad_types = ["Production Issue", "Bug", "Defect"]
 
     low_priority =["Low"]
     med_priority =["Medium"]
@@ -30,14 +29,10 @@ class PrettyPrinter
 
     prettyPrintList: (issue, detail) ->
          # the color logic seems hacky but works as first pass
-        seperator().yellow
-        newline()
-
-        process.stdout.write pad(issue.key).log.bold
+        process.stdout.write issue.key.log.bold
         issue.fields.summary = "None" unless issue.fields.summary?
         dash()
         process.stdout.write issue.fields.summary.log
-        newline()
 
         if detail
             if issue.fields.issuetype?
@@ -46,7 +41,7 @@ class PrettyPrinter
                     process.stdout.write pad(issue.fields.issuetype.name).high
                 else
                     process.stdout.write pad(issue.fields.issuetype.name).low
-                newline()
+            newline()
 
             process.stdout.write "Status:".log.bold
             if issue.fields.status.name in bad_statuses
