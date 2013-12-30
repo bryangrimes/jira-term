@@ -28,6 +28,39 @@ class PrettyPrinter
         high:"magenta"
         crit:"red"
 
+    prettyPrintList: (issue, detail) ->
+         # the color logic seems hacky but works as first pass
+        seperator().yellow
+        newline()
+
+        process.stdout.write pad(issue.key).log.bold
+        issue.fields.summary = "None" unless issue.fields.summary?
+        dash()
+        process.stdout.write issue.fields.summary.log
+        newline()
+
+        if detail
+            if issue.fields.issuetype?
+                process.stdout.write "Type:".log.bold
+                if issue.fields.issuetype.name in bad_types
+                    process.stdout.write pad(issue.fields.issuetype.name).high
+                else
+                    process.stdout.write pad(issue.fields.issuetype.name).low
+                newline()
+
+            process.stdout.write "Status:".log.bold
+            if issue.fields.status.name in bad_statuses
+                process.stdout.write pad(issue.fields.status.name).red
+            else
+                process.stdout.write pad(issue.fields.status.name).green
+            newline()
+
+            process.stdout.write "Assigned To:".log.bold
+            process.stdout.write pad(issue.fields.assignee.name).log
+            newline()
+
+        newline()
+
     prettyPrintIssue: (issue, detail)->
         # the color logic seems hacky but works as first pass
         newline()
@@ -73,7 +106,6 @@ class PrettyPrinter
             process.stdout.write "Priority:".log.bold
             if issue.fields.priority.name in med_priority
                 process.stdout.write pad(issue.fields.priority.name).medium
-                fs.createReadStream(issue.fields.priority.iconUrl).pipe(tube)
             else if issue.fields.priority.name in high_priority
                 process.stdout.write pad(issue.fields.priority.name).high
             else if issue.fields.priority.name in bad_statuses
@@ -102,7 +134,7 @@ class PrettyPrinter
             process.stdout.write pad(dt)
             newline()
 
-            newline()
+        newline()
 
     # ## Do some fancy formatting on issue types ##
     prettyPrintIssueTypes: (issueType, index)->

@@ -8,6 +8,10 @@ JiraApi = require('jira').JiraApi
 
 dutils = require('./data-utils')
 
+# enum for search types.  Used in the stdout formatting
+# a wee bit hacky at the moment
+searchTypes = {Issue:0, List:1}
+
 # ## JiraHelper ##
 #
 # This does the fancy talking to JiraApi for us. It formats the objects the way
@@ -164,13 +168,17 @@ class JiraHelper
     #
     # *  searchQuery: a jql formatted search query string
     # shows all otherwise
-    searchJira: (searchQuery, details)->
+    searchJira: (searchQuery, details, type)->
         fields = ["summary", "status", "assignee"]
         @jira.searchJira searchQuery, fields, (error, issueList) =>
             if issueList?
                 @myIssues = issueList
                 for issue in issueList.issues
-                    @pp.prettyPrintIssue issue, details
+                    switch type
+                        when searchTypes.Issue
+                            @pp.prettyPrintIssue issue, details
+                        else # less is better as default
+                            @pp.prettyPrintIssue issue, details
             else
                 @error = error if error?
                 @pp.prettyPrintError "Error retreiving issues list: #{error}"
