@@ -1,7 +1,7 @@
 {
   "name": "jira-term",
   "description": "CLI for Jira based on jira-cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://bryangrimes.github.com/jira-term",
   "author": "Bryan Grimes <bryan@bryangrim.es>",
   "bin": {
