@@ -64,7 +64,9 @@ Using jasmine-node with grunt currently and need a ton of work.  Spies are worki
 *  _0.0.2 npm updates_
 
 ## Slated For Next Release (0.1.1)
-* npm update for global name
+* Ability to create and maintain print-options with an arg to make it easy to change colors and whatnot
+* More tests
+* Better Travis integration
 
 ## License
 
