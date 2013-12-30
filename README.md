@@ -7,7 +7,8 @@ This is a fork of the [jira-cli](http://tebriel.github.com/jira-cli/) project wh
 ## Getting Started
 
 *  This is mainly a fork for my day job's Jira work, so there are some customizations to be made before this is availble via npm.
-*   That said it'll be available soon via NPM
+*   Install the module with: `npm install -g jira-term`
+*  Run it with `jira`  - NOTE: this will change with 0.0.2 release as it conflicts with the jira-cli project
 
 ## What does it do?
 
@@ -60,6 +61,9 @@ Using jasmine-node with grunt currently and need a ton of work.  Spies are worki
 ## Release History
 
 *  _0.0.1 Initial Release_
+
+## Slated For Next Release (0.0.2)
+* npm update for global name
 
 ## License
 
