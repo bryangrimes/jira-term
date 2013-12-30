@@ -10,7 +10,7 @@ colors = require('colors')
 options = require('./format-options')
 
 class PrettyPrinter
-    # hardcoded (for now) statuses that should be colored
+    # statuses that should be colored
     colors.setTheme
         success: "green"
         error: "red"
@@ -149,16 +149,13 @@ class PrettyPrinter
     #
     # Prints the project list in a non-awful format
     prettyPrintProject: (project) ->
-        # TO DO
-        # this isn't right....MMC is caught.
-        if !project.name.match(/r?z\ ?/)
-            key = project.key
-            while key.length < 12
-                key = ' ' + key
-            process.stdout.write project.key
-            dash()
-            process.stdout.write project.name
-            newline()
+        key = project.key
+        while key.length < 12
+            key = ' ' + key
+        process.stdout.write project.key
+        dash()
+        process.stdout.write project.name
+        newline()
 
     # these could all be refactored to be on methog with two args.
 

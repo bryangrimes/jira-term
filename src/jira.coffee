@@ -96,7 +96,7 @@ addWorklog = (issueId) ->
 #
 # This will list all the projects available to you
 listProjects = ->
-    projects = jiraCli.getMyProjects (projects)=>
+    projects = jiraCli.getMyProjects (projects)->
         for project in projects
             jiraCli.pp.prettyPrintProject project
 
@@ -113,7 +113,7 @@ getProject = (callback, defaultProj)->
             unless project is '?'
                 callback configFile.project
                 return
-            projects = jiraCli.getMyProjects (projects)=>
+            projects = jiraCli.getMyProjects (projects)->
                 for project in projects
                     jiraCli.pp.prettyPrintProject project
                 getProject callback, defaultProj
