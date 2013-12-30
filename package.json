@@ -5,7 +5,7 @@
   "homepage": "https://bryangrimes.github.com/jira-term",
   "author": "Bryan Grimes <bryan@bryangrim.es>",
   "bin": {
-    "jira": "./lib/jira.js"
+    "jira-term": "./lib/jira.js"
   },
   "repository": {
     "type": "git",
