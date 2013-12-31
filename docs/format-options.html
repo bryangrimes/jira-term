@@ -1,0 +1,20 @@
+<!DOCTYPE html>  <html> <head>   <title>format-options.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="data-utils.html">                 data-utils.coffee               </a>                                           <a class="source" href="format-options.html">                 format-options.coffee               </a>                                           <a class="source" href="jira-cli.html">                 jira-cli.coffee               </a>                                           <a class="source" href="jira.html">                 jira.coffee               </a>                                           <a class="source" href="pretty-printer.html">                 pretty-printer.coffee               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               format-options.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <h2>External printing configurations</h2>
+
+<p>Code reuse is the point here...
+will be scrapped in leiu of user created configs in a later version</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nv">bad_statuses = </span><span class="p">[</span><span class="s">&quot;QA Failed&quot;</span><span class="p">]</span>
+<span class="nv">bad_types = </span><span class="p">[</span><span class="s">&quot;Production Issue&quot;</span><span class="p">,</span> <span class="s">&quot;Bug&quot;</span><span class="p">,</span> <span class="s">&quot;Defect&quot;</span><span class="p">]</span>
+<span class="nx">low_priority</span> <span class="o">=</span><span class="p">[</span><span class="s">&quot;Low&quot;</span><span class="p">]</span>
+<span class="nx">med_priority</span> <span class="o">=</span><span class="p">[</span><span class="s">&quot;Medium&quot;</span><span class="p">]</span>
+<span class="nx">high_priority</span> <span class="o">=</span><span class="p">[</span><span class="s">&quot;High&quot;</span><span class="p">]</span>
+<span class="nx">critical_priority</span> <span class="o">=</span><span class="p">[</span><span class="s">&quot;Blocker&quot;</span><span class="p">,</span> <span class="s">&quot;Critical&quot;</span><span class="p">]</span>
+
+<span class="nv">module.exports = </span><span class="p">{</span>
+    <span class="nx">bad_statuses</span><span class="p">,</span>
+    <span class="nx">bad_types</span><span class="p">,</span>
+    <span class="nx">low_priority</span><span class="p">,</span>
+    <span class="nx">med_priority</span><span class="p">,</span>
+    <span class="nx">high_priority</span><span class="p">,</span>
+    <span class="nx">critical_priority</span>
+<span class="p">}</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 

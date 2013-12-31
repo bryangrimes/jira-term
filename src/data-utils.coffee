@@ -12,13 +12,13 @@
 ask = (question, format, callback, range) ->
     stdin = process.stdin
     stdout = process.stdout
- 
+
     stdin.resume()
     stdout.write(question + ": ")
- 
+
     stdin.once 'data', (data) ->
         data = data.toString().trim()
- 
+
         if range?
             if parseInt(data) in range
                 callback data

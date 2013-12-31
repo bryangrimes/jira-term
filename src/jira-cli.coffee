@@ -2,13 +2,12 @@
 # removed ansi-colors in favor of colors. Cleaner IMO.
 colors = require 'colors'
 
-# [PrettyPrinter Sourc/Doc](pretty-printer.html)
+# [PrettyPrinter docs/source](pretty-printer.html)
 PrettyPrinter = require('./pretty-printer').PrettyPrinter
+
 JiraApi = require('jira').JiraApi
 
-dutils = require('./data-utils')
-
-# enum for search types.  Used in the stdout formatting
+# Enum for search types, used in the stdout formatting
 # a wee bit hacky at the moment
 searchTypes = {Issue:0, List:1}
 

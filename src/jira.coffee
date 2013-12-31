@@ -1,24 +1,35 @@
 # #Jira Command Line Client#
 #
 # This client depends on you having a json file in your home directory
-# named '.jiraclirc.json' it must contain:
+# named `.jiraclirc.json` it must contain:
 #
 #     {
 #         "user": "USERNAME",
-#         "password":"PASSWORD",
-#         "host":"www.jira.com",
-#         "port":80,
+#         "password": "PASSWORD",
+#         "host": "xxxxxx.atlassian.net",
 #         "project": 10100
+#     }
+#
+# For SSL this the `.jiraclirc.json` may look like:
+#
+#     {
+#          "user": "USERNAME",
+#          "password": "PASSWORD",
+#          "host": "xxxxxxx.atlassian.net",
+#          "project": "ACME",
+#          "protocol": "https:"
 #     }
 #
 # If not present, it will enter an interactive mode to create it with you
 #
-# JiraCli is on [github](https://github.com/tebriel/jira-cli)
+# jira-term is on [github](https://github.com/bryangrimes/jira-term)
+# and is a fork off of the work done by Chris M (I can't locate his last name)
+# in the [jira-cli](https://github.com/tebriel/jira-cli) project.  Cheers.
 fs = require 'fs'
 path = require 'path'
-# ## [JiraHelper docs/source](jira-cli.html)
+# [JiraHelper docs/source](jira-cli.html)
 JiraHelper = require('./jira-cli').JiraHelper
-# ## [dutils docs/source](data-utils.html)
+# [dutils docs/source](data-utils.html)
 dutils = require('./data-utils')
 
 # ## Create Config File ##
@@ -72,7 +83,6 @@ transitionItem = (issueId) ->
         for transition, index in transitions
             jiraCli.pp.prettyPrintTransition transition, index + 1
         allowedTypes = [1..transitions.length]
-        #allowedTypes = new RegExp "[#{allowedTypes.join '|'}]"
         dutils.ask "Transtion Type ", allowedTypes, (type)->
             dutils.ask "Comment for worklog (blank to skip)", /.*/, (comment)->
                 if comment.length is 0

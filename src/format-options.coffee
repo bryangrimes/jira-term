@@ -1,5 +1,8 @@
-# external configs
-#class FormatOptions
+
+# ## External printing configurations
+#
+# Code reuse is the point here...
+#will be scrapped in leiu of user created configs in a later version
 bad_statuses = ["QA Failed"]
 bad_types = ["Production Issue", "Bug", "Defect"]
 low_priority =["Low"]

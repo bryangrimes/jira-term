@@ -1,16 +1,23 @@
+# create wrap function for formatting
 wrap = require('wordwrap')(8, 80)
+
+# sometime you want to pad: here it is
 pad = require('wordwrap')(2, 100)
 
-# use moment for date magic
+# moment because we're not filthy animals
 moment = require('moment')
 
-# removed ansi-colors in favor of colors. Cleaner IMO.
+# use colors it owns
 colors = require('colors')
 
+# [Printing Options docs/source](format-options.html)
 options = require('./format-options')
 
+# ## PrettyPrinter ##
+#
+# This creates the fancy output your eyes want to see.
 class PrettyPrinter
-    # statuses that should be colored
+    # Statuses that should be colored
     colors.setTheme
         success: "green"
         error: "red"
@@ -20,8 +27,11 @@ class PrettyPrinter
         high:"magenta"
         crit:"red"
 
+    # ## Pretty Print List ##
+    #
+    # Prints a listing of items with the ability for a detailed print.
+    # Color logic is weak and will be addressed more cleanly.
     prettyPrintList: (issue, detail) ->
-         # the color logic seems hacky but works as first pass
         process.stdout.write issue.key.log.bold
         issue.fields.summary = "None" unless issue.fields.summary?
         dash()
@@ -49,14 +59,15 @@ class PrettyPrinter
 
         newline()
 
+    # ## Pretty Print Issue ##
+    #
+    # Prints an issue with Summary information, or with expanded detail.
     prettyPrintIssue: (issue, detail)->
-        # the color logic seems hacky but works as first pass
         newline()
         seperator().yellow
         newline()
 
         process.stdout.write "Issue:".log.bold
-        #newline()
         process.stdout.write pad(issue.key).log.bold
         issue.fields.summary = "None" unless issue.fields.summary?
         dash()
@@ -125,8 +136,11 @@ class PrettyPrinter
         newline()
 
     # ## Do some fancy formatting on issue types ##
+    #
+    # Helper really, called when adding to not show certian issue types
+    # and to format
     prettyPrintIssueTypes: (issueType, index)->
-        # ignore subtasks for now that's a whole different thing with linking
+        # ignore subtasks for now that's a monster (linking, etc)
         if issueType.subtask == false
             process.stdout.write issueType.id.log.bold
             dash()
@@ -157,8 +171,6 @@ class PrettyPrinter
         process.stdout.write project.name
         newline()
 
-    # these could all be refactored to be on methog with two args.
-
     # ## Pretty Print Errors ##
     #
     # Prints errors red
@@ -173,14 +185,15 @@ class PrettyPrinter
         process.stdout.write message.success
         newline()
 
-     # ## Pretty Print Logs ##
+    # ## Pretty Print Logs ##
     #
     # Prints general log notifications
     prettyPrintLog: (message) ->
         process.stdout.write message.log
         newline()
 
-    # private helpers
+    # Private helpers because copy and paste is OK,
+    # but make it clean(er) with functs
     newline = () ->
         process.stdout.write "\n"
 
