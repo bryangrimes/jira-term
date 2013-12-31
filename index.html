@@ -10,6 +10,8 @@
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
     <title>Jira-term by bryangrimes</title>
   </head>
 
@@ -31,38 +33,62 @@
         <hr>
 
         <section id="main_content">
-          <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+          <h2>jira-term</h2>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+          <p>This is a fork of the <a href="http://tebriel.github.com/jira-cli/">jira-cli</a> project which isn't active at the moment, so I built on top of it.  Also, I forked and used the <a href="http://tebriel.github.com/jira-cli/">jira-cli</a> project because my current day job has very tightly controlled custom workflows where various fields can be required based on workflow actions, and I wanted to keep that separate.</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+          <p>This is also a project for me to get back into CoffeeScript and to better understand using Travis, GitHub pages, self documenting code, and other tools.  Make no mistake, I use this in my daily work, but until version 0.3.0 or so is hit, this might be buggy in edge cases (e.g. custom fields required on create, and so on).</p>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+          <h2>Why use this?</h2>
 
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+          <p>Managing an eight person dev team, plus having work of my own, I'm stuck in Jira about three hours a day.  That's answering status questions, attending scrums and pulling lists for people, prepping and tagging releases, and then I have my own queue in Jira for designs and prototype I owe for various projects.  Easily an hour of the three I spend is fidning what to click in the Jira UI and then fumbling around.  I wanted, and needed, a faster way to get my answers and data in something I'm fairly fast at: shell.
+          </p>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+          <p>
+          Oh and I love Node.js and CoffeeScript, and since the Jira-cli project had about 80% fo what I needed, this all worked out well.
+          </p>
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+          <h2>Great, so what does it do now?</h2>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+          <ul>
+          <li>Lists your issues by default</li>
+          <li>List all projects you have access to</li>
+          <li>Finds an issue by Key (AB-123) or Id (123456)</li>
+          <li>Opens an issue </li>
+          <li>Allows user to add a new ticket to various projects</li>
+          <li>Transitions an issue (shows all available transition states)</li>
+          <li>Adds a worklog to an issue</li>
+          <li>Allow searching to be limited by project id or name</li>
+          <li>Returns results in a simple or detailed output</li>
+          <li>Colors things you care about which is (somewhat) customizable</li>
+          </ul>
 
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+          <h2>Where is this thing?</h2>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+          <p><a href="https://github.com/bryangrimesjira-term/">GitHub of course</a></p>
 
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+          <h2>Any documentation?</h2>
+          <p>Sure thing: <a href="http://bryangrimes.github.io/jira-term/docs/jira.html">GitHub Documentation</a> thanks to grunt-docco</p>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-        </section>
+          <h2>Notes</h2>
+
+          <p><strong>This is actively being worked on and maintained by me.  The list of things I want to do is in the 
+          repo README, so head there for an idea.  If you want to help, get on it.</strong></p>
+
+          <h2>Release History</h2>
+
+          <ul>
+          <li><em>0.0.1 Initial Release</em></li>
+          <li><em>0.0.2 NPM Updates</em></li>
+          <li><em>0.1.0 Stable Release</em></li>
+          <li><em>0.1.1 meta update</em></li>
+          <li><em>0.1.2 meta update</em></li>
+          <li><em>0.1.3 I can't spell</em></li>
+          </ul>
+
+          <h2>License</h2>
+
+          <p>Licensed under the MIT license.  I forked, you fork, whatever let's all have some fun and get shit done. </p>
 
         <footer>
           Jira-term is maintained by <a href="https://github.com/bryangrimes">bryangrimes</a><br>
