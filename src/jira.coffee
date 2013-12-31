@@ -23,7 +23,7 @@
 # If not present, it will enter an interactive mode to create it with you
 #
 # jira-term is on [github](https://github.com/bryangrimes/jira-term)
-# and is a fork off of the work done by Chris M (I can't locate his last name)
+# and is a fork off of the work done by Chris Moultrie
 # in the [jira-cli](https://github.com/tebriel/jira-cli) project.  Cheers.
 fs = require 'fs'
 path = require 'path'
