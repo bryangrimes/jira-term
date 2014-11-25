@@ -190,11 +190,13 @@ class JiraHelper
     #
     # *  open: `boolean` which indicates if only open items should be shown,
     # shows all otherwise
-    getMyIssues: (open, details, projects)->
+    getMyIssues: (open, details, projects, sprint)->
         jql = "assignee = \"#{@config.user}\""
         if open
             jql += ' AND resolution = unresolved'
         jql += projects if projects?
+        if sprint
+            jql += ' AND sprint in openSprints()'
         @searchJira jql, details
         return
 
