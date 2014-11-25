@@ -169,6 +169,14 @@ describe "JiraCli", ->
 
         expect(@jiraCli.searchJira).toHaveBeenCalledWith jql, true
 
+    it "Gets the user's OPEN issues for all open sprints", ->
+        jql = "assignee = \"test\" AND resolution = unresolved AND sprint in openSprints()"
+        spyOn @jiraCli, 'searchJira'
+
+        @jiraCli.getMyIssues true, true, null, true
+
+        expect(@jiraCli.searchJira).toHaveBeenCalledWith jql, true
+
     it "Gets ALL the user's issues", ->
         jql = "assignee = \"test\""
         spyOn @jiraCli, 'searchJira'

@@ -169,6 +169,9 @@ if require.main is module
         ).options('l',
             alias:'list'
             describe:'Lists all your open issues'
+        ).options('ls',
+            alias:'list-sprint'
+            describe:'Lists all your open issues for the open sprints'
         ).options('c',
             alias:'list-all'
             describe:'Lists all your issues'
@@ -216,6 +219,9 @@ if require.main is module
 
     if args.l
         jiraCli.getMyIssues true, args.d, args.o
+
+    else if args.ls
+        jiraCli.getMyIssues true, args.d, args.o, true
 
     else if args.c
         jiraCli.getMyIssues false, args.d, args.o
